@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Главная Страница {% endblock %}
+
+{% block body %}
+    <div class="container col-6 border border-primary border-5 rounded rounded-top mt-5 bg-transparent">
+        <div class="row">
+            <div style="background-color: rgba(255, 255, 255, 0.1);" class="container container-sm">
+                <img class="mt-5" src="{% static 'img/logo.png' %}" alt="ЛОГОТИП ПРОЕКТА" style="pointer-events: none; display: block; margin: 0 auto;">
+                <form class="form-floating custom-form text-center" action="{% url 'main_url' %}" method="post">
+                    {% csrf_token %}
+                    {{ searchprofileform.as_p }}
+                    <button type="submit" class="btn btn-primary mx-auto d-block mb-5">Поиск</button>
+                    {% if valuedata %}
+                        <h4 class="text-danger">Такого пользователя не существует.</h4>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

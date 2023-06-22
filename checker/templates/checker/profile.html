@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block body %}
+    <div class="container col-6 border border-primary border-5 rounded rounded-top mt-5">
+        <div class="row">
+            <div style="background-color: rgba(255, 255, 255, 0.1);" class="container container-sm">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 mt-1">
+                            <div class="inner-block d-flex justify-content-center"
+                                 style="pointer-events: none; display: block;"><img
+                                    src="{% static 'img/searched.png' %}" alt="Найденный профиль"></div>
+                        </div>
+                        <div class="col-lg-12 border border-primary border-5 rounded mt-1 mb-3">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-3 mt-2 mb-2" style="pointer-events: none; display: block;">
+                                        <div class="inner-block ">
+                                            <img class="border border-primary border-5" src="{{ avatar_full }}"
+                                                 alt="Аватарка игрока">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="row">
+                                            <div class="col-md-9">
+                                                <h5 class="mt-2">Nickname: <b>{{ nickname }}</b></h5>
+                                                <h5>Account LVL: <b>{{ account_level }}</b></h5>
+                                                <h5>Joined Steam: <b>{{ time_created }}</b></h5>
+                                                {% if trade_ban == 'False' %}
+                                                    <h5 class="text-success">Trade Ban: <b>{{ trade_ban }}</b></h5>
+                                                {% elif trade_ban == 'True' %}
+                                                    <h5 class="text-danger">Trade banned: <b>{{ trade_ban }}</b></h5>
+                                                {% endif %}
+                                                {% if communityban == 'False' %}
+                                                    <h5 class="text-success">Community Ban: <b>{{ communityban }}</b>
+                                                    </h5>
+                                                {% elif communityban == 'True' %}
+                                                    <h5 class="text-danger">Community banned: <b>{{ communityban }}</b>
+                                                    </h5>
+                                                {% endif %}
+                                                {% if communityban == 'False' %}
+                                                    <h5 class="text-success">Vac Ban: <b>{{ vac_ban }}</b>
+                                                    </h5>
+                                                {% elif communityban == 'True' %}
+                                                    <h5 class="text-danger ">Vac banned: <b>{{ vac_ban }}</b>
+                                                    </h5>
+                                                {% endif %}
+                                            </div>
+                                            <div class="col-md-3 border border-primary border-2 rounded mt-3">
+                                                <a href="https://steamcommunity.com/profiles/{{ steam_id }}" target="_blank">Steam Profile</a>
+                                                <a href="https://steamcommunity.com/profiles/{{ steam_id }}/inventory/" target="_blank">Steam Inventory</a>
+                                                <a href="https://steamrep.com/profiles/{{ steam_id }}" target="_blank">SteamRep.com</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
