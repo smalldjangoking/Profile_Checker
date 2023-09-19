@@ -11,7 +11,7 @@ api_requests = {
 }
 
 
-def check_for_id(first, second, steam_API):
+def check_for_id(first, second):
     if first:
         valuepost = first
         resolve_url = f'http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key={steam_API}&vanityurl={valuepost}'

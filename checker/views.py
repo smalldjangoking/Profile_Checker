@@ -1,23 +1,17 @@
+import datetime
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from checker.forms import SearchProfileForm
-from .models import Profile_database
-import json
 from .helpers.def_helpers import check_for_id, to_data_base, json_load_data
-import datetime
-from social_core.backends.steam import SteamOpenId
-from social_django.models import UserSocialAuth
-from django.urls import reverse
+from .models import Profile_database
 
-steam_API = '1B14188AD762CC570112DE0C9C4CDE60'
 
 @login_required
 def profile(request):
     user = request.user
     steam_id = user.social_auth.get(provider='steam').uid
     json_load_data(steam_id)
-    return render(request, 'checker/profile_template.html')
+    return render(request, 'profile_template.html')
 
 
 def main_page(request):
@@ -40,8 +34,7 @@ def main_page(request):
                 tranform_to_id = custom_url_.steam_link_id
                 return redirect('profile_url', tranform_to_id)
 
-
-            valuedata = check_for_id(steam_id, custom_url, steam_API=steam_API)
+            valuedata = check_for_id(steam_id, custom_url)
             if type(valuedata) == str:
                 searchprofileform = SearchProfileForm()
                 return render(request, 'checker/main.html', {'searchprofileform': searchprofileform, 'valuedata': valuedata})
@@ -49,7 +42,6 @@ def main_page(request):
             else:
                 complit = to_data_base(valuedata=valuedata)
                 return redirect('profile_url', complit)
-
 
     else:
         searchprofileform = SearchProfileForm()
@@ -81,6 +73,7 @@ def profile_page(request, steam_id):
         'steam_id': steam_id,
     }
     return render(request, 'checker/profile.html', context)
+
 
 def about(request):
     return render(request, 'checker/about.html')
