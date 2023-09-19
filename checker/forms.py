@@ -22,7 +22,7 @@ class SearchProfileForm(forms.Form):
         if re.search(r'[!@#$%^&*()+=-]', search_value):
             raise forms.ValidationError(error_message)
 
-        #проверка на существующий аккаунт
+        #проверка на несуществующий аккаунт
         if re.search(r'[!@#$%^&*()+=-]', search_value):
             raise forms.ValidationError(error_message)
 
@@ -51,3 +51,7 @@ class SearchProfileForm(forms.Form):
             customURL = search_value
 
         return {'steam_id': steamID, 'custom_url': customURL}
+
+
+class Comment_section(forms.Form):
+    pass

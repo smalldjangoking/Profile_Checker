@@ -1,24 +1,22 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
-
-from django.db import models
 
 class Profile_database(models.Model):
     steam_link_id = models.TextField()
     nickname = models.TextField()
     steam_customlink = models.TextField(blank=True)
-    ban = models.TextField()
-    profile_data = models.TextField()
+    avatar_s = models.URLField(blank=True)
     player_lvl = models.TextField(blank=True)
     time_created = models.TextField()
-    Trade_Ban = models.TextField()
-    VAC_Ban = models.TextField()
-    CommunityBanned = models.TextField()
+    economyBan = models.TextField()
+    vacbanned = models.TextField()
+    communityBanned = models.TextField()
     avatar_url = models.URLField()
 
     def __str__(self):
         return f'Profile of: {self.steam_link_id}'
+
 
 
 
