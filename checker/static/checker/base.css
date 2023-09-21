@@ -1,11 +1,13 @@
-body {background-color:#fff; }
-h2, p {font-family: 'Titillium Web', sans-serif; Color: #000;}
+img {
+  max-width: 100%;
+  height: auto;
+}
+body {
+  font-family: 'Titillium Web',
+  sans-serif; Color: #000;
+}
 
 .steambutton {
-  position: absolute;
-  top:50%;
-  left:94%;
-  transform:translate(-50%,-50%);
   background-color: #71A031;
   height: 35px;
   width: 154px;

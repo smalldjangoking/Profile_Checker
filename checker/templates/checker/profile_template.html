@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %} Профиль - {{ user.username }} | ProfileChecker {% endblock %}
+
+
+{% block body %}
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-sm-12 border border-5 border-primary rounded rounded-top mt-5"
+                 style="background-color: rgba(255, 255, 255, 0.1)" ;>
+                <!-- Welcome, user -->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h4 class="text-center">Hey, {{ user.username }}</h4>
+                    </div>
+                </div>
+                <!-- User block, information and avatar -->
+                <div class="row">
+                    <div class="col-sm-11 border border-5 border-primary rounded rounded-top mx-auto mt-2 mb-3">
+                        <div class="row">
+                            <div class="col-sm-3 rounded rounded-top ms-1 mt-2 mb-3">
+                                <img class="border border-5 border-primary" src="{{ avatar }}" alt="avatar_of_user"
+                                     style="pointer-events: none; display: block;" ;>
+                            </div>
+                            <div class="col-sm-4 border border-5 border-primary rounded rounded-top mt-2 mb-3">
+                                <h5>Username: {{ user.username }}</h5>
+                                <h5>Joined: {{ user.date_joined }}</h5>
+                                <hr class="border border-1 border-primary rounded">
+                                <h4 class="text-center">My Searched Data </h4>
+                                <div class="d-grid gap-2 col-5 mx-auto mb-2">
+                                    <a href="/profile/{{ steam_ids }}">
+                                        <button type="button" class="btn btn-outline-light">See more info...</button>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 rounded rounded-top mt-2 mb-3 mx-auto">
+                                <img class="border border-4 border-primary rounded" src="{% static 'img/add.jpg' %}" alt="Advertise With US">
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+{% endblock %}

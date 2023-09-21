@@ -1,5 +1,6 @@
 import datetime
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 from django.shortcuts import render, redirect
 from checker.forms import SearchProfileForm
 from .helpers.def_helpers import check_for_id, to_data_base, json_load_data
@@ -10,8 +11,22 @@ from .models import Profile_database
 def profile(request):
     user = request.user
     steam_id = user.social_auth.get(provider='steam').uid
+    #Сохранение нового пользователя в БД для ProfileSearchForm
     json_load_data(steam_id)
-    return render(request, 'profile_template.html')
+
+    user_data = Profile_database.objects.get(steam_link_id=steam_id)
+    context = {
+        'avatar': user_data.avatar_url,
+        'steam_ids': int(steam_id),
+    }
+
+
+    return render(request, 'checker/profile_template.html', context=context)
+
+
+def custom_logout(request):
+    logout(request)
+    return redirect('main_url')
 
 
 def main_page(request):
