@@ -2,8 +2,9 @@ from json import JSONDecodeError
 import requests
 from ..models import Profile_database
 import json
-
-steam_API = '1B14188AD762CC570112DE0C9C4CDE60'
+#Put your API_KEY here
+steam_API = ''
+#__________________________
 api_requests = {
     'IsteamUser': f'https://api.steampowered.com/ISteamUser/GetPlayerBans/v1/',
     'GetPlayerSummaries': f'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/',
