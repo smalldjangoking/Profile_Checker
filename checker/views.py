@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from django.shortcuts import render, redirect
 from checker.forms import SearchProfileForm
-from .helpers.def_helpers import check_for_id, to_data_base, json_load_data
+from .helpers.def_helpers import check_for_id, json_load_data
 from .models import Profile_database
 
 
@@ -19,7 +19,6 @@ def profile(request):
         'avatar': user_data.avatar_url,
         'steam_ids': int(steam_id),
     }
-
 
     return render(request, 'checker/profile_template.html', context=context)
 
@@ -37,6 +36,8 @@ def main_page(request):
             steam_id = cleaned_data['steam_id']
             custom_url = cleaned_data['custom_url']
 
+
+            #Проверяем есть ли у нас в БД этот пользователь, если есть - переводим на профиль
             if Profile_database.objects.filter(steam_customlink=steam_id).exists():
                 custom_url_ = Profile_database.objects.get(steam_customlink=steam_id)
                 return redirect('profile_url', custom_url_.steam_link_id)
@@ -49,14 +50,16 @@ def main_page(request):
                 tranform_to_id = custom_url_.steam_link_id
                 return redirect('profile_url', tranform_to_id)
 
-            valuedata = check_for_id(steam_id, custom_url)
-            if type(valuedata) == str:
+            #передаем в функцию для дальнейших операций (проверяем точно ли steamID или custom_url, сохраняем в БД)
+            id_param = steam_id if steam_id else custom_url
+            valuedata = check_for_id(id_param)
+
+            #такого пользователя несуществует
+            if valuedata == True:
                 searchprofileform = SearchProfileForm()
                 return render(request, 'checker/main.html', {'searchprofileform': searchprofileform, 'valuedata': valuedata})
-
             else:
-                complit = to_data_base(valuedata=valuedata)
-                return redirect('profile_url', complit)
+                return redirect('profile_url', valuedata)
 
     else:
         searchprofileform = SearchProfileForm()
@@ -66,7 +69,10 @@ def main_page(request):
 
 def profile_page(request, steam_id):
     get_obj = Profile_database.objects.get(steam_link_id=steam_id)
-    time_calculator = datetime.datetime.fromtimestamp(int(get_obj.time_created))
+    if get_obj.time_created:
+        time_calculator = datetime.datetime.fromtimestamp(int(get_obj.time_created))
+    else:
+        time_calculator = 'Account-Hidden'
     if 'none' in get_obj.economyBan:
         trade_ban = 'False'
     else:

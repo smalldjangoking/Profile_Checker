@@ -18,11 +18,7 @@ class SearchProfileForm(forms.Form):
     def clean_search_form(self):
         search_value = self.cleaned_data['search_form']
 
-        # Проверка на steamID or link or CustormURL
-        if re.search(r'[!@#$%^&*()+=-]', search_value):
-            raise forms.ValidationError(error_message)
-
-        #проверка на несуществующий аккаунт
+        #Проверка на недопустимые символы
         if re.search(r'[!@#$%^&*()+=-]', search_value):
             raise forms.ValidationError(error_message)
 
@@ -37,16 +33,7 @@ class SearchProfileForm(forms.Form):
             elif '.com' in search_value:
                 steamID = None
                 customURL = str(search_value.split('/')[-2])
-
-        elif 'com' in search_value:
-            if search_value.split('/')[-1].isnumeric():
-                steamID = str(search_value.split('/')[-1])
-                customURL = None
-            elif '.com' in search_value:
-                steamID = None
-                customURL = str(search_value.split('/')[-1])
-
-        elif ']' not in search_value or 'STEAM_' not in search_value:
+        elif not re.search(r"[,.'/\\]", search_value):
             steamID = None
             customURL = search_value
 

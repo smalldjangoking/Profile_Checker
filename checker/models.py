@@ -5,10 +5,10 @@ from django.contrib.auth.models import User
 class Profile_database(models.Model):
     steam_link_id = models.TextField()
     nickname = models.TextField()
-    steam_customlink = models.TextField(blank=True)
+    steam_customlink = models.TextField(blank=True, null=True)
     avatar_s = models.URLField(blank=True)
-    player_lvl = models.TextField(blank=True)
-    time_created = models.TextField()
+    player_lvl = models.TextField(blank=True, null=True)
+    time_created = models.TextField(blank=True, null=True)
     economyBan = models.TextField()
     vacbanned = models.TextField()
     communityBanned = models.TextField()

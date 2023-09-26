@@ -13,7 +13,7 @@
                 <!-- Welcome, user -->
                 <div class="row">
                     <div class="col-sm-12">
-                        <h4 class="text-center">Hey, {{ user.username }}</h4>
+                        <h4 class="text-center text-primary">Hey, {{ user.username }}</h4>
                     </div>
                 </div>
                 <!-- User block, information and avatar -->
@@ -25,10 +25,10 @@
                                      style="pointer-events: none; display: block;" ;>
                             </div>
                             <div class="col-sm-4 border border-5 border-primary rounded rounded-top mt-2 mb-3">
-                                <h5>Username: {{ user.username }}</h5>
-                                <h5>Joined: {{ user.date_joined }}</h5>
+                                <h5 class="text-light">Username: {{ user.username }}</h5>
+                                <h5 class="text-light">Joined: {{ user.date_joined }}</h5>
                                 <hr class="border border-1 border-primary rounded">
-                                <h4 class="text-center">My Searched Data </h4>
+                                <h4 class="text-center text-light">My Searched Data </h4>
                                 <div class="d-grid gap-2 col-5 mx-auto mb-2">
                                     <a href="/profile/{{ steam_ids }}">
                                         <button type="button" class="btn btn-outline-light">See more info...</button>
