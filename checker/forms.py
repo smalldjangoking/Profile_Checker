@@ -25,6 +25,14 @@ class SearchProfileForm(forms.Form):
         if search_value.isnumeric():
             steamID = search_value
             customURL = False
+        elif '/' in search_value:
+            search_value = search_value.split('/')[-1]
+            if search_value.isnumeric():
+                steamID = search_value
+                customURL = False
+            elif not search_value.isnumeric():
+                steamID = False
+                customURL = search_value
 
         elif search_value.endswith('/'):
             if search_value.split('/')[-2].isnumeric():
@@ -36,6 +44,8 @@ class SearchProfileForm(forms.Form):
         elif not re.search(r"[,.'/\\]", search_value):
             steamID = False
             customURL = search_value
+
+
 
         return {'steam_id': steamID, 'custom_url': customURL}
 
