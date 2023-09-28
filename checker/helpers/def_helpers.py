@@ -3,7 +3,7 @@ import requests
 from ..models import Profile_database
 from requests.exceptions import JSONDecodeError
 import json
-steam_API = '1B14188AD762CC570112DE0C9C4CDE60'
+steam_API = ''
 
 api_requests = {
     'IsteamUser': f'https://api.steampowered.com/ISteamUser/GetPlayerBans/v1/',
